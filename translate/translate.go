@@ -2,7 +2,7 @@ package translate
 
 import "pokemon.com/data"
 
-var Pokemon_zh, Abilities_zh, Moves_zh, Types_zh, Natures_zh, Items_zh, Pokemon_en, Abilities_en, Moves_en, Types_en, Natures_en, Items_en []string = data.GetData()
+var Pokemon_zh, Abilities_zh, Types_zh, Natures_zh, Items_zh, Moves_zh, Pokemon_en, Abilities_en, Types_en, Natures_en, Items_en, Moves_en []string = data.GetDataZh()[0], data.GetDataZh()[1], data.GetDataZh()[2], data.GetDataZh()[3], data.GetDataZh()[4], data.GetDataZh()[5], data.GetDataEn()[0], data.GetDataEn()[1], data.GetDataEn()[2], data.GetDataEn()[3], data.GetDataEn()[4], data.GetDataEn()[5]
 var Pokemon_zh_set map[string]int = ListToMap(Pokemon_zh)
 var Abilities_zh_set map[string]int = ListToMap(Abilities_zh)
 var Types_zh_set map[string]int = ListToMap(Types_zh)
@@ -80,6 +80,6 @@ func Result(input Pokemon) string {
 		ans += "\nEVs: " + EVs
 	}
 	ans += "\n" + Nature + " Nature"
-	ans += "\n" + "- " + Move_1 + "\n" + "- " + Move_2 + "\n" + "- " + Move_3 + "\n" + "- " + Move_4 + "\n"
+	ans += "\n" + "- " + Move_1 + "\n" + "- " + Move_2 + "\n" + "- " + Move_3 + "\n" + "- " + Move_4 + "\n" + "\n"
 	return ans
 }
