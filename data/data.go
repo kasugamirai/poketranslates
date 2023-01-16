@@ -8,7 +8,7 @@ import (
 	"github.com/go-redis/redis"
 )
 
-func Getcontent(path string) []string {
+func GetContent(path string) []string {
 	paths := path
 	content, err := os.ReadFile(paths)
 	if err != nil {
@@ -25,7 +25,7 @@ type PokemonItem struct {
 
 var items = []string{"Pokemon", "Abilities", "Types", "Natures", "Items", "Moves"}
 
-const baseDir = "../data/Resources/"
+const baseDir = "data/Resources/"
 
 func Readfiles() {
 	rdb := redis.NewClient(&redis.Options{
@@ -36,8 +36,8 @@ func Readfiles() {
 	var mp = map[string]PokemonItem{}
 
 	for _, item := range items {
-		zh := Getcontent(baseDir + "zh/text_" + item + ".txt")
-		en := Getcontent(baseDir + "en/text_" + item + ".txt")
+		zh := GetContent(baseDir + "zh/text_" + item + ".txt")
+		en := GetContent(baseDir + "en/text_" + item + ".txt")
 		mp[item] = PokemonItem{zh, en}
 	}
 	for k, v := range mp {
