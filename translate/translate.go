@@ -2,13 +2,13 @@ package translate
 
 import "pokemon.com/data"
 
-var Pokemon_zh, Abilities_zh, Types_zh, Natures_zh, Items_zh, Moves_zh, Pokemon_en, Abilities_en, Types_en, Natures_en, Items_en, Moves_en []string = data.GetDataZh()[0], data.GetDataZh()[1], data.GetDataZh()[2], data.GetDataZh()[3], data.GetDataZh()[4], data.GetDataZh()[5], data.GetDataEn()[0], data.GetDataEn()[1], data.GetDataEn()[2], data.GetDataEn()[3], data.GetDataEn()[4], data.GetDataEn()[5]
-var Pokemon_zh_set map[string]int = ListToMap(Pokemon_zh)
-var Abilities_zh_set map[string]int = ListToMap(Abilities_zh)
-var Types_zh_set map[string]int = ListToMap(Types_zh)
-var Moves_zh_set map[string]int = ListToMap(Moves_zh)
-var Natures_zh_set map[string]int = ListToMap(Natures_zh)
-var Items_zh_set map[string]int = ListToMap(Items_zh)
+var Pokemon_en, Abilities_en, Types_en, Natures_en, Items_en, Moves_en []string = data.GetData("en")[0], data.GetData("en")[1], data.GetData("en")[2], data.GetData("en")[3], data.GetData("en")[4], data.GetData("en")[5]
+var Pokemon_zh_set map[string]int
+var Abilities_zh_set map[string]int
+var Types_zh_set map[string]int
+var Moves_zh_set map[string]int
+var Natures_zh_set map[string]int
+var Items_zh_set map[string]int
 
 type Pokemon struct {
 	Nickname string
@@ -82,4 +82,14 @@ func Result(input Pokemon) string {
 	ans += "\n" + Nature + " Nature"
 	ans += "\n" + "- " + Move_1 + "\n" + "- " + Move_2 + "\n" + "- " + Move_3 + "\n" + "- " + Move_4 + "\n" + "\n"
 	return ans
+}
+
+func init() {
+	Pokemon_zh, Abilities_zh, Types_zh, Natures_zh, Items_zh, Moves_zh := data.GetData("zh")[0], data.GetData("zh")[1], data.GetData("zh")[2], data.GetData("zh")[3], data.GetData("zh")[4], data.GetData("zh")[5]
+	Pokemon_zh_set = ListToMap(Pokemon_zh)
+	Abilities_zh_set = ListToMap(Abilities_zh)
+	Types_zh_set = ListToMap(Types_zh)
+	Moves_zh_set = ListToMap(Moves_zh)
+	Natures_zh_set = ListToMap(Natures_zh)
+	Items_zh_set = ListToMap(Items_zh)
 }

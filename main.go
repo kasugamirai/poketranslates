@@ -36,10 +36,11 @@ func main() {
 	r.GET("/readfiles", func(c *gin.Context) {
 		data.Readfiles()
 	})
-	r.GET("/datazh", func(c *gin.Context) {
-		c.JSON(200, data.GetDataZh())
+	r.GET("/data_zh", func(c *gin.Context) {
+		c.JSON(200, data.GetData("zh"))
 	})
 	r.POST("/upload", func(c *gin.Context) {
+
 		ret := GetTeams(c)
 		c.String(200, string(ret))
 

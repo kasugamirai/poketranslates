@@ -1,12 +1,24 @@
 package data
 
 import (
+	"encoding/base64"
+	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/go-redis/redis"
 )
+
+var team_list []string
+
+var rdb = redis.NewClient(&redis.Options{
+	Addr:     "localhost:6379",
+	Password: "", // no password set
+	DB:       0,  // use default DB
+})
 
 func GetContent(path string) []string {
 	paths := path
@@ -28,11 +40,7 @@ var items = []string{"Pokemon", "Abilities", "Types", "Natures", "Items", "Moves
 const baseDir = "data/Resources/"
 
 func Readfiles() {
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
+
 	var mp = map[string]PokemonItem{}
 
 	for _, item := range items {
@@ -47,44 +55,19 @@ func Readfiles() {
 	}
 }
 
-func GetDataZh() [][]string {
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-	Pokemon_zh, _ := rdb.LRange("Pokemon_zh", 0, -1).Result()
-	Abilities_zh, _ := rdb.LRange("Abilities_zh", 0, -1).Result()
-	Moves_zh, _ := rdb.LRange("Moves_zh", 0, -1).Result()
-	Types_zh, _ := rdb.LRange("Types_zh", 0, -1).Result()
-	Natures_zh, _ := rdb.LRange("Natures_zh", 0, -1).Result()
-	Items_zh, _ := rdb.LRange("Items_zh", 0, -1).Result()
-	ans := [][]string{Pokemon_zh, Abilities_zh, Types_zh, Natures_zh, Items_zh, Moves_zh}
-	return ans
-}
-
-func GetDataEn() [][]string {
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-	Pokemon_en, _ := rdb.LRange("Pokemon_en", 0, -1).Result()
-	Abilities_en, _ := rdb.LRange("Abilities_en", 0, -1).Result()
-	Moves_en, _ := rdb.LRange("Moves_en", 0, -1).Result()
-	Types_en, _ := rdb.LRange("Types_en", 0, -1).Result()
-	Natures_en, _ := rdb.LRange("Natures_en", 0, -1).Result()
-	Items_en, _ := rdb.LRange("Items_en", 0, -1).Result()
-	ans := [][]string{Pokemon_en, Abilities_en, Types_en, Natures_en, Items_en, Moves_en}
-	return ans
-}
-
-func Json_zh() map[string][]string {
-	ret := map[string][]string{}
-	data := []string{"Pokemon", "Ability", "TeraType", "Nature", "Item", "Move"}
-	tmp := GetDataZh()
-	for i, ch := range data {
-		ret[ch] = tmp[i]
+func GetData(name string) [][]string {
+	ans := [][]string{}
+	for _, item := range items {
+		item, _ := rdb.LRange(item+"_"+name, 0, -1).Result()
+		ans = append(ans, item)
 	}
-	return ret
+	return ans
+}
+
+func SaveTeams(team string) {
+	rand.Seed(time.Now().UnixNano())
+	num := rand.Int63n(time.Now().UnixNano())
+	encoded := base64.StdEncoding.EncodeToString([]byte(fmt.Sprint(num)))
+	team_list = append(team_list, encoded)
+	rdb.Set("team_list", encoded, 86400000000000) //24h expire
 }
