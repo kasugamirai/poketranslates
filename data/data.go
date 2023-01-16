@@ -18,41 +18,32 @@ func Getcontent(path string) []string {
 	return contents
 }
 
+type PokemonItem struct {
+	Zh []string
+	En []string
+}
+
+var items = []string{"Pokemon", "Abilities", "Types", "Natures", "Items", "Moves"}
+
+const baseDir = "../data/Resources/"
+
 func Readfiles() {
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
-	var Pokemon_zh = Getcontent("../data/Resources/zh/text_Species_zh.txt")
-	var Abilities_zh = Getcontent("../data/Resources/zh/text_Abilities_zh.txt")
-	var Moves_zh = Getcontent("../data/Resources/zh/text_Moves_zh.txt")
-	var Types_zh = Getcontent("../data/Resources/zh/text_Types_zh.txt")
-	var Natures_zh = Getcontent("../data/Resources/zh/text_Natures_zh.txt")
-	var Items_zh = Getcontent("../data/Resources/zh/text_Items_zh.txt")
-	var Pokemon_en = Getcontent("../data/Resources/en/text_Species_en.txt")
-	var Abilities_en = Getcontent("../data/Resources/en/text_Abilities_en.txt")
-	var Moves_en = Getcontent("../data/Resources/en/text_Moves_en.txt")
-	var Types_en = Getcontent("../data/Resources/en/text_Types_en.txt")
-	var Natures_en = Getcontent("../data/Resources/en/text_Natures_en.txt")
-	var Items_en = Getcontent("../data/Resources/en/text_Items_en.txt")
-	var mp = map[string][]string{
-		"Pokemon_zh":   Pokemon_zh,
-		"Abilities_zh": Abilities_zh,
-		"Moves_zh":     Moves_zh,
-		"Types_zh":     Types_zh,
-		"Natures_zh":   Natures_zh,
-		"Items_zh":     Items_zh,
-		"Pokemon_en":   Pokemon_en,
-		"Abilities_en": Abilities_en,
-		"Moves_en":     Moves_en,
-		"Types_en":     Types_en,
-		"Natures_en":   Natures_en,
-		"Items_en":     Items_en,
+	var mp = map[string]PokemonItem{}
+
+	for _, item := range items {
+		zh := Getcontent(baseDir + "zh/text_" + item + ".txt")
+		en := Getcontent(baseDir + "en/text_" + item + ".txt")
+		mp[item] = PokemonItem{zh, en}
 	}
 	for k, v := range mp {
-		rdb.Del(k)
-		rdb.RPush(k, v)
+		rdb.Del(k+"_zh", k+"_en")
+		rdb.RPush(k+"_zh", v.Zh)
+		rdb.RPush(k+"_en", v.En)
 	}
 }
 
