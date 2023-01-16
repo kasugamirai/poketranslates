@@ -8,10 +8,12 @@ window.onload = function(){
     function addopt(){
                 for(var i=0; i < 9; i++) {                    
                     for(var j=0; j < 6; j++) {
-                        var opt=document.createElement('option')
-                        opt.text = data[i][1]
-                        opt.value = data[1][1]
-                        document.getElementById(arr[i]).add(opt)
+                        for(var x=0; x < data.length; x++) {
+                            var opt=document.createElement('option')
+                            opt.text = data[j][x]
+                            opt.value = data[j][x]
+                            document.getElementById(arr[i]).add(opt)
+                        }                        
                     }                   
                 }
     }
