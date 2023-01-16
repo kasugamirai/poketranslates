@@ -26,7 +26,7 @@ func GetTeams(c *gin.Context) string {
 
 func main() {
 	r := gin.Default()
-	r.LoadHTMLGlob("template/*")
+	r.LoadHTMLGlob("web/template/*")
 	r.Static("/static", "../static")
 	r.GET("/teambulider", func(c *gin.Context) {
 		c.HTML(200, "teambulider.html", gin.H{
