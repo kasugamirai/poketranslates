@@ -18,37 +18,33 @@ func Getcontent(path string) []string {
 	return contents
 }
 
+type PokemonItem struct {
+	Zh []string
+	En []string
+}
+
+var items = []string{"Pokemon", "Abilities", "Types", "Natures", "Items", "Moves"}
+
+const baseDir = "../data/Resources/"
+
 func Readfiles() {
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
+	var mp = map[string]PokemonItem{}
 
-	var Pokemon_zh []string = Getcontent("data/Resources/zh/text_Species_zh.txt")
-	var Abilities_zh []string = Getcontent("data/Resources/zh/text_Abilities_zh.txt")
-	var Moves_zh []string = Getcontent("data/Resources/zh/text_Moves_zh.txt")
-	var Types_zh []string = Getcontent("data/Resources/zh/text_Types_zh.txt")
-	var Natures_zh []string = Getcontent("data/Resources/zh/text_Natures_zh.txt")
-	var Items_zh []string = Getcontent("data/Resources/zh/text_Items_zh.txt")
-	var Pokemon_en []string = Getcontent("data/Resources/en/text_Species_en.txt")
-	var Abilities_en []string = Getcontent("data/Resources/en/text_Abilities_en.txt")
-	var Moves_en []string = Getcontent("data/Resources/en/text_Moves_en.txt")
-	var Types_en []string = Getcontent("data/Resources/en/text_Types_en.txt")
-	var Natures_en []string = Getcontent("data/Resources/en/text_Natures_en.txt")
-	var Items_en []string = Getcontent("data/Resources/en/text_Items_en.txt")
-	rdb.RPush("Pokemon_zh", Pokemon_zh)
-	rdb.RPush("Abilities_zh", Abilities_zh)
-	rdb.RPush("Moves_zh", Moves_zh)
-	rdb.RPush("Types_zh", Types_zh)
-	rdb.RPush("Natures_zh", Natures_zh)
-	rdb.RPush("Items_zh", Items_zh)
-	rdb.RPush("Pokemon_en", Pokemon_en)
-	rdb.RPush("Abilities_en", Abilities_en)
-	rdb.RPush("Moves_en", Moves_en)
-	rdb.RPush("Types_en", Types_en)
-	rdb.RPush("Natures_en", Natures_en)
-	rdb.RPush("Items_en", Items_en)
+	for _, item := range items {
+		zh := Getcontent(baseDir + "zh/text_" + item + ".txt")
+		en := Getcontent(baseDir + "en/text_" + item + ".txt")
+		mp[item] = PokemonItem{zh, en}
+	}
+	for k, v := range mp {
+		rdb.Del(k+"_zh", k+"_en")
+		rdb.RPush(k+"_zh", v.Zh)
+		rdb.RPush(k+"_en", v.En)
+	}
 }
 
 func GetDataZh() [][]string {
