@@ -40,10 +40,14 @@ func main() {
 		c.JSON(200, data.GetData("zh"))
 	})
 	r.POST("/upload", func(c *gin.Context) {
-
 		ret := GetTeams(c)
-		c.String(200, string(ret))
+		c.JSON(200, string(ret))
 
+	})
+	r.GET("/test", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

@@ -9,36 +9,47 @@
 </head>
 <body>
     <form method="post">
-        Nickname<br>
-        <datalist id="Nickname" data ="Nickname"></datalist><br>
-        Pokemon<br>
+        Nickname<br><input class="Nickname"/><br>
+        Pokemon<br><input list="Pokemon" class="Pokemon"/>
         <datalist id="Pokemon"></datalist><br>
-        Gender<br>
-        <datalist id="Gender"></datalist><br>
-        Item<br>
+        Gender<br> <input list="Gender" class="Gender"/>
+        <datalist id="Gender">
+            <option value="M">
+            <option value="F">
+        </datalist><br>
+        Item<br> <input list="Item" class="Item"/>
         <datalist id="Item"></datalist><br>
-        Ability<br>
+        Ability<br> <input list="Ability" class="Ability"/>
         <datalist id="Ability"></datalist><br>
-        Level<br>
-        <datalist id="Level"></datalist><br>
-        TeraType<br>
+        Level<br> <input list="Level" class="Level"/><br>
+        TeraType<br> <input list="TeraType" class="TeraType"/>
         <datalist id="TeraType"></datalist><br>
-        EVs<br>
-        <datalist id="EVs"></datalist><br>
-        TeraType<br>
-        <datalist id="TeraType"></datalist><br>
-        Nature<br>
+        EVs<br> <span class="EVs"/><span>
+        hp
+        <input type="number" name="iv-hp" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        atk
+        <input type="number" name="iv-atk" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        def
+        <input type="number" name="iv-def" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        spa
+        <input type="number" name="iv-spa" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        spd
+        <input type="number" name="iv-spd" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        spe
+        <input type="number" name="iv-spe" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <br>
+        Nature<br> <input list="Nature" class="Nature"/>
         <datalist id="Nature"></datalist><br>
-        Move_1<br>
-        <datalist id="Move_1"></datalist><br>
-        Move_2<br>
-        <datalist id="Move_2"></datalist><br>
-        Move_3<br>
-        <datalist id="Move_3"></datalist><br>
-        Move_4<br>
-        <datalist id="Move_4"></datalist><br>
-        <input class="btn" type="submit" name="submit" value="Submit">
+        Move_1<br> <input list="Move" class="Move_1"/>
+        <datalist id="Move"></datalist><br>
+        Move_2<br> <input list="Move" class="Move_2"/>
+        <datalist id="Move"></datalist><br>
+        Move_3<br> <input list="Move" class="Move_3"/>
+        <datalist id="Move"></datalist><br>
+        Move_4<br> <input list="Move" class="Move_4"/>
+        <datalist id="Move"></datalist><br>
+        <input class="btn" type="button" name="submit" value="Submit" onclick="add()">
+        <input class="btn" type="button" name="submit" value="Submit" onclick="submisson()">
     </form>
-    
 </body>
 </html>
