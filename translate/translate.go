@@ -18,6 +18,7 @@ type Pokemon struct {
 	Ability  string
 	Level    string
 	TeraType string
+	IVs      string
 	EVs      string
 	Nature   string
 	Move_1   string
@@ -49,6 +50,7 @@ func Result(input Pokemon) string {
 	ability := Zh_to_En(Abilities_en, Abilities_zh_set, input.Ability)
 	level := input.Level
 	TeraType := Zh_to_En(Types_en, Types_zh_set, input.TeraType)
+	IVs := input.IVs
 	EVs := input.EVs
 	Nature := Zh_to_En(Natures_en, Natures_zh_set, input.Nature)
 	Move_1 := Zh_to_En(Moves_en, Moves_zh_set, input.Move_1)
@@ -59,12 +61,12 @@ func Result(input Pokemon) string {
 	var ans string
 
 	if nickname != "" {
-		ans = nickname + "(" + pokemon + ")"
+		ans = nickname + " (" + pokemon + ")"
 	} else {
 		ans = pokemon
 	}
 	if gender != "" {
-		ans += "(" + gender + ")"
+		ans += " (" + gender + ")"
 	}
 	if item != "" {
 		ans += " @ " + item
@@ -78,6 +80,9 @@ func Result(input Pokemon) string {
 	}
 	if EVs != "" {
 		ans += "\nEVs: " + EVs
+	}
+	if IVs != "" {
+		ans += "\nIVs: " + IVs
 	}
 	ans += "\n" + Nature + " Nature"
 	ans += "\n" + "- " + Move_1 + "\n" + "- " + Move_2 + "\n" + "- " + Move_3 + "\n" + "- " + Move_4 + "\n" + "\n"

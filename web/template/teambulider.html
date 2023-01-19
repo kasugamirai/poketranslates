@@ -24,19 +24,33 @@
         Level<br> <input list="Level" class="Level"/><br>
         TeraType<br> <input list="TeraType" class="TeraType"/>
         <datalist id="TeraType"></datalist><br>
-        EVs<br> <span class="EVs"/><span>
+        IVs<br> <span class="IVs"/><span>
         hp
-        <input type="number" name="iv-hp" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <input type="number" id="HP" value="31" class="textbox inputform numform" min="0" max="31" step="1">
         atk
-        <input type="number" name="iv-atk" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <input type="number" id="Atk" value="31" class="textbox inputform numform" min="0" max="31" step="1">
         def
-        <input type="number" name="iv-def" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <input type="number" id="Def" value="31" class="textbox inputform numform" min="0" max="31" step="1">
         spa
-        <input type="number" name="iv-spa" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <input type="number" id="SpA" value="31" class="textbox inputform numform" min="0" max="31" step="1">
         spd
-        <input type="number" name="iv-spd" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <input type="number" id="SpD" value="31" class="textbox inputform numform" min="0" max="31" step="1">
         spe
-        <input type="number" name="iv-spe" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <input type="number" id="Spe" value="31" class="textbox inputform numform" min="0" max="31" step="1">
+        <br>
+        EVs<br>
+        hp
+        <input type="number" id="stat-HP" value="0" class="textbox inputform numform" min="0" max="252" step="1">
+        atk
+        <input type="number" id="stat-Atk" value="0" class="textbox inputform numform" min="0" max="252" step="1">
+        def
+        <input type="number" id="stat-Def" value="0" class="textbox inputform numform" min="0" max="252" step="1">
+        spa
+        <input type="number" id="stat-SpA" value="0" class="textbox inputform numform" min="0" max="252" step="1">
+        spd
+        <input type="number" id="stat-SpD" value="0" class="textbox inputform numform" min="0" max="252" step="1">
+        spe
+        <input type="number" id="stat-Spe" value="0" class="textbox inputform numform" min="0" max="252" step="1">
         <br>
         Nature<br> <input list="Nature" class="Nature"/>
         <datalist id="Nature"></datalist><br>
@@ -48,7 +62,7 @@
         <datalist id="Move"></datalist><br>
         Move_4<br> <input list="Move" class="Move_4"/>
         <datalist id="Move"></datalist><br>
-        <input class="btn" type="button" name="submit" value="Submit" onclick="add()">
+        <input class="btn" type="button" name="submit" value="add" onclick="add()">
         <input class="btn" type="button" name="submit" value="Submit" onclick="submisson()">
     </form>
 </body>

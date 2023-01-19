@@ -10,8 +10,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var links []string
+
 func GetTeams(c *gin.Context) string {
-	jsonBlob := []byte(c.PostForm("teams"))
+	jsonBlob := []byte(c.PostForm("pokemon"))
 	var pokemons []translate.Pokemon
 	var ans string
 	err := json.Unmarshal(jsonBlob, &pokemons)
@@ -40,13 +42,41 @@ func main() {
 		c.JSON(200, data.GetData("zh"))
 	})
 	r.POST("/upload", func(c *gin.Context) {
-		ret := GetTeams(c)
-		c.JSON(200, string(ret))
+		var pokemons []translate.Pokemon
+		c.BindJSON(&pokemons)
+		var ans string
+		for _, pokemon := range pokemons {
+			ans += translate.Result(pokemon)
+		}
+		link := data.SaveTeams(ans)
+		links = append(links, link)
+		fmt.Print((ans))
+		c.JSON(200, gin.H{
+			"link": link,
+		})
+	})
+	r.POST("/ret", func(c *gin.Context) {
+		var link string
+		c.BindJSON(&link)
+		ans := data.RetTeams(link)
+		c.JSON(200, gin.H{
+			"ret": ans,
+		})
 
 	})
-	r.GET("/test", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
+
+	r.POST("/search", func(ctx *gin.Context) {
+		var link string
+		ctx.BindJSON(&link)
+		ans := data.RetTeams(link)
+		ctx.JSON(200, gin.H{
+			"res": ans,
+		})
+	})
+
+	r.GET("/find", func(ctx *gin.Context) {
+		ctx.HTML(200, "search.html", gin.H{
+			"title": "search",
 		})
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080

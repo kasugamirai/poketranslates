@@ -12,8 +12,6 @@ import (
 	"github.com/go-redis/redis"
 )
 
-var team_list []string
-
 var rdb = redis.NewClient(&redis.Options{
 	Addr:     "localhost:6379",
 	Password: "", // no password set
@@ -64,10 +62,15 @@ func GetData(name string) [][]string {
 	return ans
 }
 
-func SaveTeams(team string) {
+func SaveTeams(team string) string {
 	rand.Seed(time.Now().UnixNano())
 	num := rand.Int63n(time.Now().UnixNano())
-	encoded := base64.StdEncoding.EncodeToString([]byte(fmt.Sprint(num)))
-	team_list = append(team_list, encoded)
-	rdb.Set("team_list", encoded, 86400000000000) //24h expire
+	encoded := base64.StdEncoding.EncodeToString([]byte(fmt.Sprint(num)))[:8]
+	rdb.HSet("teamlist", encoded, team)
+	return encoded
+}
+
+func RetTeams(link string) string {
+	ret, _ := rdb.HGet("teamlist", link).Result()
+	return ret
 }
