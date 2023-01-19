@@ -33,7 +33,7 @@ type PokemonItem struct {
 	En []string
 }
 
-var items = []string{"Pokemon", "Abilities", "Types", "Natures", "Items", "Moves"}
+var items = []string{"Species", "Abilities", "Types", "Natures", "Items", "Moves"}
 
 const baseDir = "data/Resources/"
 
