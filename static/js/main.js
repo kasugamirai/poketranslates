@@ -2,6 +2,7 @@ const url = "/data_zh"
 var dic = new Array()
 var arr=new Array('Pokemon', 'Ability', 'TeraType','Nature','Item', 'Move')
 var Pokemons=new Array('Nickname', 'Pokemon', 'Gender', 'Item', 'Ability', 'Level', 'TeraType', 'IVs', 'EVs','Nature', 'Move_1', 'Move_2', 'Move_3', 'Move_4')
+var ivs = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe']
 function addopt(data){
     for(var i=0; i < 9; i++) {    
         if (data[i] != undefined){
@@ -17,23 +18,38 @@ function addopt(data){
 }
 
 async function logFetch(url) {
-    try {
-        const data = await fetch(url).then(data => data.json());
+        const data = await getJSON(url);
         addopt(data)
-    } catch (err) {
-        console.log('fetch failed', err);
-    }
 }
   
 window.onload = function(){
-    logFetch(url) 
+    logFetch(url)
+    for (var i = 0; i < 6; i++) {
+        let input = document.createElement('input')
+        input.id = ivs[i]
+        input.value = "31"
+        input.max = "31"
+        input.min = "0"
+        input.type = "number"
+        input.step = "1"
+        document.getElementById('IVs').append(ivs[i], input)
+    }
+    for (var i = 0; i < 6; i++) {
+        let input = document.createElement('input')
+        input.id = 'stat-' + ivs[i]
+        input.value = "0"
+        input.max = "252"
+        input.min = "0"
+        input.type = "number"
+        input.step = "1"
+        document.getElementById('EVs').append(ivs[i], input)
+    }
 }
 
 function add(){
     var EVs
     var IVs
     var arr = {}
-    var ivs = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe']
     for(var i=0; i<14; i++) {
         if (document.querySelector("." + Pokemons[i]) != undefined) {
             arr[Pokemons[i]] = document.querySelector("." + Pokemons[i]).value
@@ -61,26 +77,16 @@ function add(){
     arr['IVs'] = IVs 
     dic.push(arr)
     console.log(dic)
+    let span = document.createElement("span")
+    document.getElementById('team').append(arr.Pokemon, span)
 }
 
-async function submissons(){
-    const options = {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dic),
-        };        
-    const url = "/upload"
-    const data = await fetch(url, options).then(data => console.log(data.json()));
-    console.log(data)
-}
 
 
 async function submisson() {
     res = await postJSON("/upload", dic)
     console.log(res.link)
-    alert(res.link)
+    alert("查询码: " + res.link)
 }
 
 async function postJSON(url, data) {
@@ -107,31 +113,3 @@ async function getJSON(url) {
     }
 }
 
-function tests() {
-    const data = { username: 'example' };
-    var b = JSON.stringify(data)
-    console.log(b)
-    console.log(typeof b)
-
-    fetch('/test', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(JSON.parse(data))
-      console.log('Success:', JSON.parse(data));
-      
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}
-async function search() {
-    res = await postJSON("/search", document.getElementById('link').value)
-    ans = res.res.replace(/(\n)/g, '<br>')
-    document.getElementById('ret').innerHTML = ans
-}

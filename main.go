@@ -30,9 +30,9 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("./web/template/*")
 	r.Static("/static", "static")
-	r.GET("/teambulider", func(c *gin.Context) {
-		c.HTML(200, "teambulider.html", gin.H{
-			"title": "teambulider",
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(200, "teambuilder.html", gin.H{
+			"title": "teambuilder",
 		})
 	})
 	r.GET("/readfiles", func(c *gin.Context) {
@@ -50,19 +50,9 @@ func main() {
 		}
 		link := data.SaveTeams(ans)
 		links = append(links, link)
-		fmt.Print((ans))
 		c.JSON(200, gin.H{
 			"link": link,
 		})
-	})
-	r.POST("/ret", func(c *gin.Context) {
-		var link string
-		c.BindJSON(&link)
-		ans := data.RetTeams(link)
-		c.JSON(200, gin.H{
-			"ret": ans,
-		})
-
 	})
 
 	r.POST("/search", func(ctx *gin.Context) {
@@ -79,5 +69,5 @@ func main() {
 			"title": "search",
 		})
 	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.Run(":8080") // listen and serve on 0.0.0.0:8080
 }

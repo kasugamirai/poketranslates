@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/static/js/main.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        Nickname昵称<br><input class="Nickname"/><br>
+        Pokemon<br><input list="Pokemon" class="Pokemon"/>
+        <datalist id="Pokemon"></datalist><br>
+        Gender性别<br> <input list="Gender" class="Gender"/>
+        <datalist id="Gender">
+            <option value="M">
+            <option value="F">
+        </datalist><br>
+        Item道具<br> <input list="Item" class="Item"/>
+        <datalist id="Item"></datalist><br>
+        Ability特性<br> <input list="Ability" class="Ability"/>
+        <datalist id="Ability"></datalist><br>
+        Level等级<br> <input list="Level" class="Level" type="number" max="100" min="0"/><br>
+        TeraType太晶属性<br> <input list="TeraType" class="TeraType"/>
+        <datalist id="TeraType"></datalist><br>
+        IVs个体值<br><div id="IVs"></div>
+        EVs努力值<br><div id="EVs"></div>
+        Nature性格<br> <input list="Nature" class="Nature"/>
+        <datalist id="Nature"></datalist><br>
+        Move_1<br> <input list="Move" class="Move_1"/>
+        <datalist id="Move"></datalist><br>
+        Move_2<br> <input list="Move" class="Move_2"/>
+        <datalist id="Move"></datalist><br>
+        Move_3<br> <input list="Move" class="Move_3"/>
+        <datalist id="Move"></datalist><br>
+        Move_4<br> <input list="Move" class="Move_4"/>
+        <datalist id="Move"></datalist><br>
+        <input class="btn" type="button" name="submit" value="添加" onclick="add()">
+        <input class="btn" type="button" name="submit" value="提交" onclick="submisson()">
+        <input class="btn" type="button" name="submit" value="查询" onclick="window.open('/find')">
+        <br>
+        已经添加:<div id="team"></div>
+    </form>
+</body>
+</html>
