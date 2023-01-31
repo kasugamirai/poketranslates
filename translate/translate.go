@@ -17,6 +17,7 @@ type Pokemon struct {
 	Item     string
 	Ability  string
 	Level    string
+	Shiny    string
 	TeraType string
 	IVs      string
 	EVs      string
@@ -36,8 +37,8 @@ func ListToMap(list []string) map[string]int {
 }
 
 func Zh_to_En(en []string, Zh_map map[string]int, target string) string {
-	if Zh_map[target] > -1 {
-		return en[Zh_map[target]]
+	if p, ok := Zh_map[target]; ok {
+		return en[p]
 	}
 	return ""
 }
@@ -49,6 +50,7 @@ func Result(input Pokemon) string {
 	item := Zh_to_En(Items_en, Items_zh_set, input.Item)
 	ability := Zh_to_En(Abilities_en, Abilities_zh_set, input.Ability)
 	level := input.Level
+	Shiny := input.Shiny
 	TeraType := Zh_to_En(Types_en, Types_zh_set, input.TeraType)
 	IVs := input.IVs
 	EVs := input.EVs
@@ -74,6 +76,9 @@ func Result(input Pokemon) string {
 	ans += "\nAbility: " + ability
 	if level != "" {
 		ans += "\nLevel: " + level
+	}
+	if Shiny != "" {
+		ans += "\nShiny: " + Shiny
 	}
 	if TeraType != "" {
 		ans += "\nTera Type: " + TeraType

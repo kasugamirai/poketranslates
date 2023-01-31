@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/static/js/main.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7985124091685733"
+    crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -22,6 +24,11 @@
         Ability特性<br> <input list="Ability" class="Ability"/>
         <datalist id="Ability"></datalist><br>
         Level等级<br> <input list="Level" class="Level" type="number" max="100" min="0"/><br>
+        Shiny闪光<input list="Shiny" class="Shiny"/>
+        <datalist id="Shiny">
+            <option value="Yes">
+            <option value="No">
+        </datalist><br>
         TeraType太晶属性<br> <input list="TeraType" class="TeraType"/>
         <datalist id="TeraType"></datalist><br>
         IVs个体值<br><div id="IVs"></div>
@@ -36,9 +43,9 @@
         <datalist id="Move"></datalist><br>
         Move_4<br> <input list="Move" class="Move_4"/>
         <datalist id="Move"></datalist><br>
-        <input class="btn" type="button" name="submit" value="添加" onclick="add()">
-        <input class="btn" type="button" name="submit" value="提交" onclick="submisson()">
-        <input class="btn" type="button" name="submit" value="查询" onclick="window.open('/find')">
+        添加<input class="btn" type="button" name="submit" value="add" onclick="add()">
+        提交<input class="btn" type="button" name="submit" value="submit" onclick="submisson()">
+        查询<input class="btn" type="button" name="submit" value="search" onclick="window.open('/find')">
         <br>
         已经添加:<div id="team"></div>
     </form>

@@ -69,5 +69,12 @@ func main() {
 			"title": "search",
 		})
 	})
+
+	r.GET("/ad", func(ctx *gin.Context) {
+		ctx.HTML(200, "ad.html", gin.H{
+			"title": "ad",
+		})
+	})
+
 	r.Run(":8080") // listen and serve on 0.0.0.0:8080
 }

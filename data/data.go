@@ -66,11 +66,11 @@ func SaveTeams(team string) string {
 	rand.Seed(time.Now().UnixNano())
 	num := rand.Int63n(time.Now().UnixNano())
 	encoded := base64.StdEncoding.EncodeToString([]byte(fmt.Sprint(num)))[:8]
-	rdb.HSet("teamlist", encoded, team)
+	rdb.Set(encoded, team, 3*time.Hour)
 	return encoded
 }
 
 func RetTeams(link string) string {
-	ret, _ := rdb.HGet("teamlist", link).Result()
+	ret, _ := rdb.Get(link).Result()
 	return ret
 }

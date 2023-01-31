@@ -1,7 +1,7 @@
 const url = "/data_zh"
 var dic = new Array()
 var arr=new Array('Pokemon', 'Ability', 'TeraType','Nature','Item', 'Move')
-var Pokemons=new Array('Nickname', 'Pokemon', 'Gender', 'Item', 'Ability', 'Level', 'TeraType', 'IVs', 'EVs','Nature', 'Move_1', 'Move_2', 'Move_3', 'Move_4')
+var Pokemons=new Array('Nickname', 'Pokemon', 'Gender', 'Item', 'Ability', 'Level', 'Shiny', 'TeraType', 'IVs', 'EVs','Nature', 'Move_1', 'Move_2', 'Move_3', 'Move_4')
 var ivs = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe']
 function addopt(data){
     for(var i=0; i < 9; i++) {    
@@ -50,7 +50,7 @@ function add(){
     var EVs
     var IVs
     var arr = {}
-    for(var i=0; i<14; i++) {
+    for(var i=0; i<15; i++) {
         if (document.querySelector("." + Pokemons[i]) != undefined) {
             arr[Pokemons[i]] = document.querySelector("." + Pokemons[i]).value
         } else {
@@ -84,9 +84,13 @@ function add(){
 
 
 async function submisson() {
-    res = await postJSON("/upload", dic)
-    console.log(res.link)
-    alert("查询码: " + res.link)
+    if (dic.length == 0) {
+        alert("请先添加")
+    } else {
+        res = await postJSON("/upload", dic)
+        console.log(res.link)
+        alert("查询码: " + res.link)    
+    }
 }
 
 async function postJSON(url, data) {
