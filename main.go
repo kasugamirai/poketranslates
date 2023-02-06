@@ -1,9 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"pokemon.com/data"
 	"pokemon.com/translate"
 
@@ -11,20 +8,6 @@ import (
 )
 
 var links []string
-
-func GetTeams(c *gin.Context) string {
-	jsonBlob := []byte(c.PostForm("pokemon"))
-	var pokemons []translate.Pokemon
-	var ans string
-	err := json.Unmarshal(jsonBlob, &pokemons)
-	if err != nil {
-		fmt.Println("error:", err)
-	}
-	for _, ch := range pokemons {
-		ans += translate.Result(ch)
-	}
-	return ans
-}
 
 func main() {
 	r := gin.Default()
@@ -46,7 +29,7 @@ func main() {
 		c.BindJSON(&pokemons)
 		var ans string
 		for _, pokemon := range pokemons {
-			ans += translate.Result(pokemon)
+			ans += translate.Result(pokemon, translate.Zh_set)
 		}
 		link := data.SaveTeams(ans)
 		links = append(links, link)

@@ -31,6 +31,7 @@ func GetContent(path string) []string {
 type PokemonItem struct {
 	Zh []string
 	En []string
+	Ja []string
 }
 
 var items = []string{"Species", "Abilities", "Types", "Natures", "Items", "Moves"}
@@ -44,12 +45,14 @@ func Readfiles() {
 	for _, item := range items {
 		zh := GetContent(baseDir + "zh/text_" + item + ".txt")
 		en := GetContent(baseDir + "en/text_" + item + ".txt")
-		mp[item] = PokemonItem{zh, en}
+		ja := GetContent(baseDir + "ja/text_" + item + ".txt")
+		mp[item] = PokemonItem{zh, en, ja}
 	}
 	for k, v := range mp {
-		rdb.Del(k+"_zh", k+"_en")
+		rdb.Del(k+"_zh", k+"_en", k+"_ja")
 		rdb.RPush(k+"_zh", v.Zh)
 		rdb.RPush(k+"_en", v.En)
+		rdb.RPush(k+"_ja", v.Ja)
 	}
 }
 
